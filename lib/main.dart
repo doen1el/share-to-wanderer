@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:share_to_wanderer/view_models/homepage_view_model.dart';
 import 'package:share_to_wanderer/view_models/main_view_model.dart';
 import 'package:share_to_wanderer/views/homepage.dart';
@@ -38,6 +36,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    // Dispose sharing intent
     final mainViewModel = Provider.of<MainViewModel>(context, listen: false);
     mainViewModel.disposeSharingIntent();
     super.dispose();
@@ -47,13 +46,6 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [Locale('en'), Locale('de')],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
       ),
