@@ -12,6 +12,7 @@ class MainViewModel extends ChangeNotifier {
   var logger = Logger();
   late StreamSubscription _intentSub;
   final _sharedFiles = <SharedMediaFile>[];
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
 
   /// Dispose the sharing intent
   void disposeSharingIntent() {
@@ -48,6 +49,7 @@ class MainViewModel extends ChangeNotifier {
     logger.i(_sharedFiles.map((f) => f.toMap()).toString());
     notifyListeners();
 
+    isLoading.value = true;
     for (var file in _sharedFiles) {
       if (file.path.endsWith('.gpx') ||
           file.path.endsWith('.json') ||
@@ -63,6 +65,7 @@ class MainViewModel extends ChangeNotifier {
         );
       }
     }
+    isLoading.value = false;
   }
 
   /// Login to wanderer
