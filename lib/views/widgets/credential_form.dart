@@ -247,7 +247,10 @@ class CredentialsFormState extends State<CredentialsForm> {
                           color: Colors.white,
                         ),
                       )
-                      : Text('Test', style: TextStyle(fontSize: 15)),
+                      : Text(
+                        'Test',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
             ),
           ),
         ],

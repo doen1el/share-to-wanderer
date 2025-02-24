@@ -21,6 +21,7 @@ class HomePageViewModel extends ChangeNotifier {
     final prefs = await _getPrefs();
     logger.i('Setting $key to $value');
     await prefs.setString(key, value);
+    notifyListeners();
   }
 
   /// Set a boolean value in SharedPreferences
@@ -33,6 +34,7 @@ class HomePageViewModel extends ChangeNotifier {
     final prefs = await _getPrefs();
     logger.i('Setting $key to $value');
     await prefs.setBool(key, value);
+    notifyListeners();
   }
 
   /// Get a string value from SharedPreferences

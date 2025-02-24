@@ -12,6 +12,7 @@ class MainViewModel extends ChangeNotifier {
   var logger = Logger();
   late StreamSubscription _intentSub;
   final _sharedFiles = <SharedMediaFile>[];
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
 
   /// Dispose the sharing intent
   void disposeSharingIntent() {
@@ -48,18 +49,23 @@ class MainViewModel extends ChangeNotifier {
     logger.i(_sharedFiles.map((f) => f.toMap()).toString());
     notifyListeners();
 
+    isLoading.value = true;
     for (var file in _sharedFiles) {
-      if (file.path.endsWith('.gpx')) {
+      if (file.path.endsWith('.gpx') ||
+          file.path.endsWith('.json') ||
+          file.path.endsWith('.fit') ||
+          file.path.endsWith('.kml')) {
         uploadGpx(file.path);
       } else {
         logger.i('Ignoring non-GPX file: ${file.path}');
         Fluttertoast.showToast(
-          msg: 'File is not a GPX file',
+          msg: 'Only GPX, JSON, FIT and KML files are supported',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
         );
       }
     }
+    isLoading.value = false;
   }
 
   /// Login to wanderer
