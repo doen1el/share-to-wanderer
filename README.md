@@ -4,7 +4,7 @@
 
 # Share to Wanderer
 
-This is an unofficial companion application for [Wanderer](https://github.com/Flomp/wanderer). It allows you to upload tracks from your device to your Wanderer instance. You can also share tracks from other applications with the app and have them uploaded automatically. For example, if you recorded your track using [OpenTracks](https://github.com/OpenTracksApp/OpenTracks), you can share it with that application and have it uploaded to your Wanderer instance. Currently the Wanderer API only allows GPX files to be uploaded, so you cannot upload tracks with images.
+This is an unofficial companion app for [Wanderer](https://github.com/Flomp/wanderer). It allows you to upload tracks from your device to your Wanderer instance. You can also share tracks from other applications with the app and have them uploaded automatically. For example, if you recorded your track using [OpenTracks](https://github.com/OpenTracksApp/OpenTracks), you can share it with that app and have it uploaded to your Wanderer instance. Currently the Wanderer API only allows GPX files to be uploaded, so you cannot upload tracks with images.
 
 The app is built with [Flutter](https://github.com/flutter/flutter) and uses the **Material You**. The app is currently available for **Android** only.
 
@@ -33,10 +33,8 @@ You can of course open issues for bugs, feedback, and feature ideas. All suggest
 
 ## 🚧 Roadmap
 
-- [ ] Add App to F-Droid
 - [ ] Add support for tracks with images
 - [ ] Add localization
-- [ ] Add dark mode
 
 ## 📜 Credits
 
