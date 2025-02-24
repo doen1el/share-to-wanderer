@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:share_to_wanderer/view_models/homepage_view_model.dart';
 import 'package:share_to_wanderer/view_models/main_view_model.dart';
 import 'package:share_to_wanderer/views/widgets/credential_form.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,6 +37,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<HomePageViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -45,17 +47,35 @@ class Homepage extends StatelessWidget {
               'Share to Wanderer',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            IconButton(
-              onPressed: () async {
-                final Uri url = Uri.parse(
-                  'https://github.com/doen1el/share-to-wanderer/issues/new',
-                );
-                if (!await launchUrl(url)) {
-                  throw Exception('Could not launch $url');
-                }
-              },
-              icon: Icon(Icons.bug_report_rounded),
-              tooltip: "Report a bug",
+            Row(
+              children: [
+                ValueListenableBuilder<bool>(
+                  valueListenable: viewModel.isDarkTheme,
+                  builder: (context, isDarkTheme, child) {
+                    return IconButton(
+                      onPressed: () async {
+                        await viewModel.setTheme(!isDarkTheme);
+                      },
+                      icon: Icon(
+                        isDarkTheme ? Icons.dark_mode : Icons.light_mode,
+                      ),
+                      tooltip: "Toggle theme",
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final Uri url = Uri.parse(
+                      'https://github.com/doen1el/share-to-wanderer/issues/new',
+                    );
+                    if (!await launchUrl(url)) {
+                      throw Exception('Could not launch $url');
+                    }
+                  },
+                  icon: Icon(Icons.bug_report_rounded),
+                  tooltip: "Report a bug",
+                ),
+              ],
             ),
           ],
         ),

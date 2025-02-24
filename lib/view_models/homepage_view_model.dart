@@ -5,6 +5,17 @@ import 'package:http/http.dart' as http;
 
 class HomePageViewModel extends ChangeNotifier {
   var logger = Logger();
+  late ThemeMode _themeMode = ThemeMode.system;
+
+  final ValueNotifier<bool> _isDarkTheme = ValueNotifier<bool>(false);
+
+  ValueNotifier<bool> get isDarkTheme => _isDarkTheme;
+  ThemeMode get themeMode => _themeMode;
+
+  // ignore: non_constant_identifier_names
+  HomepageViewModel() {
+    getTheme();
+  }
 
   /// Get the SharedPreferences instance
   Future<SharedPreferences> _getPrefs() async {
@@ -21,6 +32,7 @@ class HomePageViewModel extends ChangeNotifier {
     final prefs = await _getPrefs();
     logger.i('Setting $key to $value');
     await prefs.setString(key, value);
+    notifyListeners();
   }
 
   /// Set a boolean value in SharedPreferences
@@ -33,6 +45,7 @@ class HomePageViewModel extends ChangeNotifier {
     final prefs = await _getPrefs();
     logger.i('Setting $key to $value');
     await prefs.setBool(key, value);
+    notifyListeners();
   }
 
   /// Get a string value from SharedPreferences
@@ -91,6 +104,17 @@ class HomePageViewModel extends ChangeNotifier {
     await _setBool('useHttps', useHttps);
   }
 
+  /// Set the theme in SharedPreferences
+  ///
+  /// Parameters:
+  ///
+  /// - `isDark`: Whether to use the dark theme
+  Future<void> setTheme(bool isDark) async {
+    await _setBool('isDark', isDark);
+    _isDarkTheme.value = isDark;
+    _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+  }
+
   /// Get whether to use HTTPS from SharedPreferences
   Future<bool> getUseHttps() async {
     return await _getBool('useHttps');
@@ -109,6 +133,12 @@ class HomePageViewModel extends ChangeNotifier {
   /// Get the password from SharedPreferences
   Future<String> getPassword() async {
     return await _getString('password');
+  }
+
+  /// Get the theme from SharedPreferences
+  Future<void> getTheme() async {
+    _isDarkTheme.value = await _getBool('isDark');
+    _themeMode = _isDarkTheme.value ? ThemeMode.dark : ThemeMode.light;
   }
 
   /// Test the connection to the Wanderer instance

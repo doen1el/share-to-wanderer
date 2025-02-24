@@ -10,7 +10,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomePageViewModel()),
+        ChangeNotifierProvider(create: (_) => HomePageViewModel()..getTheme()),
         ChangeNotifierProvider(create: (_) => MainViewModel()),
       ],
       child: const MyApp(),
@@ -26,6 +26,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  late bool _themeMode;
+
   @override
   void initState() {
     super.initState();
@@ -44,12 +46,29 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+    return ChangeNotifierProvider(
+      create: (context) => HomePageViewModel(),
+      child: Consumer<HomePageViewModel>(
+        builder: (context, viewModel, child) {
+          return MaterialApp(
+            title: 'Share to Wanderer',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.lightBlue,
+                brightness: Brightness.light,
+              ),
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.lightBlue,
+                brightness: Brightness.dark,
+              ),
+            ),
+            themeMode: viewModel.themeMode,
+            home: const Homepage(),
+          );
+        },
       ),
-      home: const Homepage(),
     );
   }
 }
