@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -58,20 +59,20 @@ class Homepage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      ValueListenableBuilder<bool>(
-                        valueListenable: viewModel.isDarkTheme,
-                        builder: (context, isDarkTheme, child) {
-                          return IconButton(
-                            onPressed: () async {
-                              await viewModel.setTheme(!isDarkTheme);
-                            },
-                            icon: Icon(
-                              isDarkTheme ? Icons.dark_mode : Icons.light_mode,
-                            ),
-                            tooltip: "Toggle theme",
-                          );
-                        },
-                      ),
+                      // At the moment, toggling the theme is not persistent
+                      // IconButton(
+                      //   onPressed: () async {
+                      //     AdaptiveTheme.of(context).mode.isDark
+                      //         ? AdaptiveTheme.of(context).setLight()
+                      //         : AdaptiveTheme.of(context).setDark();
+                      //   },
+                      //   icon: Icon(
+                      //     AdaptiveTheme.of(context).mode.isDark
+                      //         ? Icons.dark_mode
+                      //         : Icons.light_mode,
+                      //   ),
+                      //   tooltip: "Toggle theme",
+                      // ),
                       IconButton(
                         onPressed: () async {
                           final Uri url = Uri.parse(

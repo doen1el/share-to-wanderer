@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_to_wanderer/view_models/homepage_view_model.dart';
@@ -10,7 +11,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomePageViewModel()..getTheme()),
+        ChangeNotifierProvider(create: (_) => HomePageViewModel()),
         ChangeNotifierProvider(create: (_) => MainViewModel()),
       ],
       child: const MyApp(),
@@ -26,8 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  late bool _themeMode;
-
   @override
   void initState() {
     super.initState();
@@ -46,29 +45,25 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => HomePageViewModel(),
-      child: Consumer<HomePageViewModel>(
-        builder: (context, viewModel, child) {
-          return MaterialApp(
-            title: 'Share to Wanderer',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.lightBlue,
-                brightness: Brightness.light,
-              ),
-            ),
-            darkTheme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.lightBlue,
-                brightness: Brightness.dark,
-              ),
-            ),
-            themeMode: viewModel.themeMode,
-            home: const Homepage(),
-          );
-        },
+    return AdaptiveTheme(
+      light: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.light,
+        colorSchemeSeed: Colors.lightBlue,
       ),
+      dark: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorSchemeSeed: Colors.lightBlue,
+      ),
+      initial: AdaptiveThemeMode.system,
+      builder:
+          (theme, dartTheme) => MaterialApp(
+            title: 'Share to Wanderer',
+            theme: theme,
+            darkTheme: dartTheme,
+            home: const Homepage(),
+          ),
     );
   }
 }
