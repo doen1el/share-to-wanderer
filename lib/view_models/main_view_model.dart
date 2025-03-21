@@ -54,12 +54,13 @@ class MainViewModel extends ChangeNotifier {
       if (file.path.endsWith('.gpx') ||
           file.path.endsWith('.json') ||
           file.path.endsWith('.fit') ||
-          file.path.endsWith('.kml')) {
+          file.path.endsWith('.kml') ||
+          file.path.endsWith('.kmz')) {
         uploadGpx(file.path);
       } else {
         logger.i('Ignoring non-GPX file: ${file.path}');
         Fluttertoast.showToast(
-          msg: 'Only GPX, JSON, FIT and KML files are supported',
+          msg: 'Only GPX, JSON, FIT, KMZ and KML files are supported',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
         );
