@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -40,7 +39,6 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomePageViewModel>();
     final mainViewModel = context.watch<MainViewModel>();
 
     return Scaffold(
@@ -59,20 +57,6 @@ class Homepage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      // At the moment, toggling the theme is not persistent
-                      // IconButton(
-                      //   onPressed: () async {
-                      //     AdaptiveTheme.of(context).mode.isDark
-                      //         ? AdaptiveTheme.of(context).setLight()
-                      //         : AdaptiveTheme.of(context).setDark();
-                      //   },
-                      //   icon: Icon(
-                      //     AdaptiveTheme.of(context).mode.isDark
-                      //         ? Icons.dark_mode
-                      //         : Icons.light_mode,
-                      //   ),
-                      //   tooltip: "Toggle theme",
-                      // ),
                       IconButton(
                         onPressed: () async {
                           final Uri url = Uri.parse(
@@ -102,7 +86,7 @@ class Homepage extends StatelessWidget {
                 SizedBox(height: 10),
                 TextDisplay(
                   text:
-                      "Enter your wanderer credentials below. Then you can share your GPX files to this app and they will be uploaded to your wanderer instance.",
+                      "Enter your wanderer credentials below. Then you can share your tracks to this app and they will be uploaded to your wanderer instance.",
                 ),
                 SizedBox(height: 30),
                 CredentialsForm(),
@@ -110,7 +94,7 @@ class Homepage extends StatelessWidget {
 
                 TextDisplay(
                   text:
-                      "You can also upload GPX files manually by clicking the button below.",
+                      "You can also upload tracks manually by clicking the button below.",
                 ),
               ],
             ),

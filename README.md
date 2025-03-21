@@ -31,11 +31,6 @@ The app is built with [Flutter](https://github.com/flutter/flutter) and uses the
 
 You can of course open issues for bugs, feedback, and feature ideas. All suggestions are very welcome :)
 
-## 🚧 Roadmap
-
-- [ ] Add support for tracks with images
-- [ ] Add localization
-
 ## 📜 Credits
 
 - [Wanderer](https://github.com/Flomp/wanderer)
